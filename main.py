@@ -1,19 +1,20 @@
-words = ["jeg", "fordi", "har", "en", "et", "mælk", "hus"]
+words = ["jeg", "fordi", "har", "en", "et", "mælk", "hus", "."]
 
 import random
 from time import sleep
 
 weights = [
-    [0, 0, 1, 0, 0, 0, 0],
-    [1, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 0, 0, 1],
-    [0, 1, 0, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0, 0, 0]
+    [0, 0, 1, 0, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0],
+    [0, 1, 0, 0, 0, 0, 0, 1],
+    [0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0]
     ]
 
-
+print(weights[7][0])
 
 startIndex = -1
 while True:
@@ -27,19 +28,21 @@ while True:
         
 
 def getInput(lastWordIndex):
-    input = [0, 0, 0, 0, 0, 0, 0]
+    input = [0, 0, 0, 0, 0, 0, 0, 0]
     input[lastWordIndex] = 1
      
     return input 
 
 def getOutput(input):
-    output = [0, 0, 0, 0, 0, 0, 0]
+    output = [0, 0, 0, 0, 0, 0, 0, 0]
     
-    for a in range(7):
+    for a in range(8):
         
         iOutput = 0
         
-        for b in range(7):
+        for b in range(8):
+            # print(a)
+            # print(b)
             iOutput += weights[b][a] * input[b]
         output[a] = iOutput
     return output
@@ -55,11 +58,13 @@ def chooseBestIndex(output):
 
 bestIndex = startIndex
 
-print(startingWord, end=" ")
+print(startingWord, end="")
 
 for i in range(100):
     bestIndex = chooseBestIndex(getOutput(getInput(bestIndex)))
-    print(words[bestIndex], end=" ", flush=True)
+    if(bestIndex < 7):
+        print(" ", end="", flush=True)
+    print(words[bestIndex], end="", flush=True)
     sleep(0.5)
 
 
